@@ -115,6 +115,8 @@ export default {
   }
 
   ul {
+    user-select: none;
+
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
@@ -123,24 +125,22 @@ export default {
       list-style: none;
     }
     .container-film {
+      user-select: none;
+
       position: relative;
       margin: 2rem;
-      background-color: green;
       flex-direction: column;
       width: 350px;
       height: 470px;
       display: flex;
       align-items: center;
-      background: linear-gradient(72deg, #343a40 0%, #0d0d0d 80%);
-      background: -webkit-linear-gradient(72deg, #343a40 0%, #0d0d0d 80%);
-      background: -moz-linear-gradient(72deg, #343a40 0%, #0d0d0d 80%);
       .film-title {
         background-color: #0d0d0d;
         padding: 20px;
         position: absolute;
         bottom: 0;
         width: 100%;
-        text-align: center;
+        max-height: 25%;
         font-size: 2rem;
         max-width: 80%;
         font-weight: 600;
