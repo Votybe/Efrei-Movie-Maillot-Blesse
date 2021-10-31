@@ -1,10 +1,20 @@
 <template>
   <div id="nav">
-    <router-link to="/">Accueil</router-link> |
-    <router-link to="/getallfilms">Tous nos films</router-link>
+    <Header />
   </div>
   <router-view />
 </template>
+
+<script>
+import Header from "./components/Header";
+export default {
+  name: "app",
+
+  components: {
+    Header,
+  },
+};
+</script>
 
 <style lang="scss">
 * {

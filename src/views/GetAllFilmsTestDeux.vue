@@ -1,33 +1,11 @@
 <template>
   <div class="all">
     <div class="first-part">
-      <!-- <div class="shopping">
-				<shoppingCart
-					:souhaits="souhaits"
-					:panier="panier"
-					@addCart="addCart"
-				/>
-			</div> -->
       <!-- Section Films affiche -->
       <div class="section-film-affich">
         <div class="left">
-          <div class="header">
-            <div class="title">
-              <h2>{{ filmAffiche.title }}</h2>
-            </div>
-
-            <svg
-              class="test-heart"
-              width="38"
-              height="38"
-              xmlns="http://www.w3.org/2000/svg"
-              fill-rule="evenodd"
-              clip-rule="evenodd"
-            >
-              <path
-                d="M12 21.593c-5.63-5.539-11-10.297-11-14.402 0-3.791 3.068-5.191 5.281-5.191 1.312 0 4.151.501 5.719 4.457 1.59-3.968 4.464-4.447 5.726-4.447 2.54 0 5.274 1.621 5.274 5.181 0 4.069-5.136 8.625-11 14.402m5.726-20.583c-2.203 0-4.446 1.042-5.726 3.238-1.285-2.206-3.522-3.248-5.719-3.248-3.183 0-6.281 2.187-6.281 6.191 0 4.661 5.571 9.429 12 15.809 6.43-6.38 12-11.148 12-15.809 0-4.011-3.095-6.181-6.274-6.181"
-              />
-            </svg>
+          <div class="title">
+            <h2>{{ filmAffiche.title }}</h2>
           </div>
           <div class="description">
             <p>{{ filmAffiche.description }}</p>
@@ -98,21 +76,21 @@
     </div>
     <div class="second-part">
       <div class="list-film">
-        <input type="text" placeholder="Avatar..." v-model="champFilm" />
+        <input type="text" placeholder="Avatar..." />
         <ul class="liste-films">
           <li v-for="(film, index) in films" :key="index">
             <div class="container-film" v-if="filtrer(film.genre_ids)">
               <!-- <img
-							src="../assets/add.jpg"
-							@click="getFilm(film)"
-							class="item-add"
-							alt="add.jpg"
-						/>
-						<img
-							class="item-like"
-							@click="getFilmForSouhait(film)"
-							src="https://img.icons8.com/external-flatart-icons-outline-flatarticons/64/000000/external-like-instagram-flatart-icons-outline-flatarticons.png"
-						/> -->
+              src="../assets/add.jpg"
+              @click="getFilm(film)"
+              class="item-add"
+              alt="add.jpg"
+            />
+            <img
+              class="item-like"
+              @click="getFilmForSouhait(film)"
+              src="https://img.icons8.com/external-flatart-icons-outline-flatarticons/64/000000/external-like-instagram-flatart-icons-outline-flatarticons.png"
+            /> -->
               <img
                 :src="
                   'https://www.themoviedb.org/t/p/w220_and_h330_face/' +
@@ -135,7 +113,7 @@
 import axios from "axios";
 
 export default {
-  name: "GetAllFilms",
+  name: "GetAllFilmsTest",
   components: {},
   data() {
     return {
@@ -147,14 +125,12 @@ export default {
       filmAffiche: {
         description: "",
       },
-      date: "",
-      note: "",
-      champFilm: "",
       genre: false,
       sortie: false,
       rating: false,
     };
   },
+
   methods: {
     fonctionGenres() {
       this.genre = !this.genre;
@@ -177,13 +153,19 @@ export default {
         this.genre = false;
         this.sortie = false;
       }
+
+      //   this. = !this.rating;
+
+      //   if (this.rating) {
+      //     this.genre = false;
+      //   }
     },
-    addCart(film) {
-      if (this.panier.findIndex((f) => f.title === film.title) === -1)
-        this.panier.push(film);
-      let index = this.souhaits.findIndex((f) => f.title === film.title);
-      this.souhaits.splice(index, 1);
-    },
+    // addCart(film) {
+    //   if (this.panier.findIndex((f) => f.title === film.title) === -1)
+    //     this.panier.push(film);
+    //   let index = this.souhaits.findIndex((f) => f.title === film.title);
+    //   this.souhaits.splice(index, 1);
+    // },
 
     async getItems() {
       await axios
@@ -193,34 +175,6 @@ export default {
         .then((response) => {
           this.films = response.data.items;
           this.filmAffiche = response.data.items[0];
-          this.note = response.data.items[0].vote_average;
-
-          console.log("note :" + Math.round(this.note));
-          if (this.note <= 5) {
-            console.log("je suis dans les pires films");
-          } else {
-            console.log("je suis dans les meilleurs films");
-          }
-          // début partie filtre date
-          this.date = response.data.items[0].release_date;
-          let annee = "";
-          for (let i = 0; i < this.date.length; i++) {
-            if (annee.length == 4) {
-              break;
-            } else {
-              annee = annee.concat(this.date[i]);
-            }
-          }
-          parseInt(annee);
-          console.log("annee en entier :" + annee);
-          if (annee >= 1997 && annee <= 2005) {
-            console.log("je suis un vieux film");
-          } else {
-            console.log("je suis un films récents");
-          }
-          // partie fin films date
-
-          // récupérer 20% de la déscription
           let nouvellechaine = "";
           for (let i = 0; i < response.data.items[0].overview.length; i++) {
             nouvellechaine = nouvellechaine.concat(
@@ -235,7 +189,6 @@ export default {
             }
           }
           this.filmAffiche.description = nouvellechaine;
-          // fin récup 20% films
         });
     },
 
@@ -281,7 +234,6 @@ export default {
 
   mounted() {
     this.getItems().then(() => this.getGenre());
-    // console.log(this.filmAffiche);
   },
 };
 </script>
@@ -305,11 +257,6 @@ export default {
 
   display: flex;
   flex-direction: column;
-  .shopping {
-    background-color: pink;
-    width: 200px;
-    height: 200px;
-  }
   .first-part {
     display: flex;
     flex-direction: row;
@@ -335,33 +282,17 @@ export default {
         height: 100%;
         display: flex;
         flex-direction: column;
+        .title {
+          margin-top: 30px;
+          width: 100%;
+          height: 10%;
 
-        .header {
-          flex-direction: flex;
-          display: flex;
-          .title {
-            margin-top: 30px;
-            width: 100%;
-            height: 10%;
-
-            color: white;
-            font-family: "Open Sans", sans-serif;
-            h2 {
-              text-align: center;
-            }
-          }
-
-          svg {
-            align-self: flex-end;
-            // align-items: center;
-            display: flex;
-
-            &:hover {
-              background-color: blue;
-            }
+          color: white;
+          font-family: "Open Sans", sans-serif;
+          h2 {
+            text-align: center;
           }
         }
-
         .description {
           margin-top: 30px;
           margin-left: 20px;
@@ -396,13 +327,12 @@ export default {
         }
       }
       .right {
-        display: flex;
         width: 50%;
         align-self: center;
         justify-content: center;
         img {
-          height: 50%;
-          width: 54%;
+          height: 75%;
+          width: 150px;
         }
       }
     }
