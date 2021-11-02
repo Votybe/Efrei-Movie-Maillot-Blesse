@@ -6,8 +6,6 @@
     <div class="link">
       <router-link to="/">Accueil</router-link>
       <router-link to="/getallfilms">Tous nos films</router-link>
-      <router-link to="/getallfilmstest ">Page 3</router-link>
-      <router-link to="/getallfilmstestDeux ">Page 3</router-link>
       <router-link to="/">Page 4</router-link>
       <router-link to="/">Page 5</router-link>
     </div>
@@ -22,18 +20,13 @@ export default {
 
 <style lang="scss" scoped>
 .header {
-  height: 7vh;
+  height: 9vh;
   display: flex;
   width: 100%;
-  background: rgb(134, 8, 207);
-  background: linear-gradient(
-    254deg,
-    rgba(134, 8, 207, 1) 29%,
-    rgba(81, 11, 174, 1) 100%
-  );
+  background-color: #042444;
 
   .title {
-    color: black;
+    color: #b5dfff;
     width: 25%;
     text-align: center;
     align-self: center;
@@ -48,7 +41,7 @@ export default {
       text-align: end;
       text-decoration: none;
       font-size: 20px;
-      color: black;
+      color: #b5dfff;
       margin: 0 2px;
       align-self: center;
       font-weight: 800;
