@@ -1,18 +1,33 @@
 <template>
   <div>
-    <img
-      class="panier"
-      alt="panier"
-      @click="toggleCart()"
-      src="https://img.icons8.com/external-flatart-icons-lineal-color-flatarticons/64/000000/external-cart-supermarket-flatart-icons-lineal-color-flatarticons.png"
-    />
+    <!-- <img class="panier" alt="panier" src="../assets/logo.png" /> -->
 
-    <div v-if="display" class="test">
+    <svg
+      @click="toggleCart()"
+      aria-hidden="true"
+      focusable="false"
+      data-prefix="fas"
+      data-icon="shopping-cart"
+      class="svg-inline--fa fa-shopping-cart fa-w-18 panier"
+      role="img"
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 576 512"
+    >
+      <path
+        fill=" #b5dfff"
+        d="M528.12 301.319l47.273-208C578.806 78.301 567.391 64 551.99 64H159.208l-9.166-44.81C147.758 8.021 137.93 0 126.529 0H24C10.745 0 0 10.745 0 24v16c0 13.255 10.745 24 24 24h69.883l70.248 343.435C147.325 417.1 136 435.222 136 456c0 30.928 25.072 56 56 56s56-25.072 56-56c0-15.674-6.447-29.835-16.824-40h209.647C430.447 426.165 424 440.326 424 456c0 30.928 25.072 56 56 56s56-25.072 56-56c0-22.172-12.888-41.332-31.579-50.405l5.517-24.276c3.413-15.018-8.002-29.319-23.403-29.319H218.117l-6.545-32h293.145c11.206 0 20.92-7.754 23.403-18.681z"
+      ></path>
+    </svg>
+    <div v-if="display" class="shopping-cart">
       <div class="title-border">
         <div class="list-achat">
           <h2>Liste d'achat</h2>
           <ul>
-            <li class="panier" v-for="(element, index) in panier" :key="index">
+            <li
+              class="item_panier"
+              v-for="(element, index) in panier"
+              :key="index"
+            >
               {{ element.title }}
             </li>
           </ul>
@@ -21,12 +36,12 @@
           <h2>Liste de souhait</h2>
           <ul>
             <li
-              class="panier"
+              class="item_panier"
               v-for="(souhait, index) in souhaits"
               :key="index"
             >
-              {{ souhait.title }}
-              <button @click="addCart(souhait)">Ajouter au panier</button>
+              <p>{{ souhait.title }}</p>
+              <button @click="addCart(souhait)">+</button>
             </li>
           </ul>
         </div>
@@ -41,9 +56,11 @@ export default {
   props: {
     panier: {
       type: Array,
+      default: () => [],
     },
     souhaits: {
       type: Array,
+      default: () => [],
     },
   },
   data() {
@@ -64,30 +81,85 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-img {
-  width: 100px;
-  height: 100px;
-}
-
 .panier {
-  height: 40px;
-  width: 40px;
+  position: absolute;
+  right: 20px;
+  height: 30px;
+  width: 30px;
+  display: flex;
+  align-self: center;
 }
 
 .title-border {
   display: flex;
   flex-direction: row;
-  border: 2px solid black;
 
   h2 {
     display: flex;
     margin: 0 1rem;
+    color: white;
+  }
+
+  li {
+    color: white;
+    margin: 2px;
+  }
+  .list-souhait {
+    display: flex;
+    flex-direction: column;
+    border-left: solid 1px white;
+    ul {
+      display: flex;
+      flex-direction: column;
+      li {
+        justify-content: center;
+        width: 100%;
+        text-align: center;
+        display: flex;
+        list-style-type: none;
+
+        p {
+          color: white;
+        }
+        button {
+          text-align: center;
+          margin: 0 auto;
+          width: 20%;
+        }
+      }
+    }
+  }
+
+  .list-achat {
+    display: flex;
+    flex-direction: column;
+    li {
+      width: 100%;
+      text-align: center;
+      display: flex;
+      list-style-type: none;
+
+      p {
+        color: white;
+      }
+      button {
+        text-align: center;
+        margin: 0 auto;
+        width: 20%;
+      }
+    }
   }
 }
 
-.test {
+.shopping-cart {
   display: flex;
-  background-color: #fff;
-  width: 25%;
+  width: 500px;
+  height: 900px;
+  background: rgb(134, 8, 207);
+  background: linear-gradient(
+    254deg,
+    rgba(134, 8, 207, 1) 29%,
+    rgba(81, 11, 174, 1) 100%
+  );
 }
 </style>
