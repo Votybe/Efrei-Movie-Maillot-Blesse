@@ -1,13 +1,17 @@
 <template>
-  <div id="nav">
-    <Header />
+  <div class="nav">
+    <Header class="header" />
+
+    <ShoppingCart
+      class="shopping"
+      :souhaits="souhaits"
+      :panier="panier"
+      @addCart="addCart"
+      @suppFilmPanier="suppFilmPanier"
+      @viderPanier="viderPanier"
+    />
   </div>
-  <ShoppingCart
-    class="shopping"
-    :souhaits="souhaits"
-    :panier="panier"
-    @addCart="addCart"
-  />
+
   <router-view
     @addFilmForSouhait="addFilmForSouhait"
     @addFilmPanier="addFilmPanier"
@@ -46,6 +50,19 @@ export default {
         this.souhaits.splice(index, 1);
       }
     },
+
+    suppFilmPanier(film) {
+      let index = this.souhaits.findIndex((f) => f.title === film.title);
+      if (index !== -1) this.souhaits.splice(index, 1);
+
+      let indexDeux = this.panier.findIndex((f) => f.title === film.title);
+
+      if (indexDeux !== -1) this.panier.splice(indexDeux, 1);
+    },
+
+    viderPanier() {
+      this.panier = [];
+    },
     addFilmForSouhait(film) {
       if (this.panier.findIndex((f) => f.title === film.title) === -1) {
         if (this.souhaits.findIndex((f) => f.title === film.title) === -1)
@@ -69,10 +86,11 @@ export default {
     user-select: none;
   }
 }
-.shopping {
-  position: fixed;
-  z-index: 10;
-  right: 0;
-  top: 0;
-}
+
+// .nav {
+//   z-index: 755;
+//   position: sticky;
+//   top: 0;
+//   right: 0;
+// }
 </style>

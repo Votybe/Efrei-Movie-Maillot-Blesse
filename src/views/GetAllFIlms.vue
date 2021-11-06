@@ -13,9 +13,6 @@
         </div>
         <div class="left">
           <div class="header">
-            <div class="title">
-              <h2>{{ filmAffiche.title }}</h2>
-            </div>
             <div class="icons">
               <svg
                 @click="addFilmForSouhait(filmAffiche)"
@@ -46,7 +43,6 @@
                   />
                 </g>
               </svg>
-
               <svg
                 @click="addFilmPanier(filmAffiche)"
                 width="22px"
@@ -66,13 +62,16 @@
                 ></path>
               </svg>
             </div>
+            <div class="title">
+              <h2>{{ filmAffiche.title }}</h2>
+            </div>
           </div>
           <div class="description">
-            <p>{{ filmAffiche.description }}</p>
+            <p>{{ filmAffiche.overview }}</p>
           </div>
           <div class="plus">
             <button @click="this.$router.push('/movie/' + filmAffiche.id)">
-              <span>En savoir plus</span>
+              <span>ReadMore</span>
             </button>
           </div>
         </div>
@@ -91,10 +90,10 @@
         <div class="section-filtre">
           <div class="header">
             <nav>
-              <button @click="filtre = []"><span>All Genres</span></button>
-              <button @click="fonctionGenres"><span>Genres</span></button>
-              <button @click="fonctionSortie"><span>Sortie</span></button>
-              <button @click="fonctionRating"><span>Popularité</span></button>
+              <button @click="filtre = []"><span>All gender</span></button>
+              <button @click="fonctionGenres"><span>Gender</span></button>
+              <button @click="fonctionSortie"><span>recently </span></button>
+              <button @click="fonctionRating"><span>famous </span></button>
             </nav>
           </div>
           <div class="section-genre" v-show="genre">
@@ -117,7 +116,7 @@
                   @click="changeRating(2)"
                   :class="{ selected: currentRating === 2 }"
                 >
-                  <span>Meilleur films</span>
+                  <span>better </span>
                 </button>
               </div>
               <div class="last-film">
@@ -125,7 +124,7 @@
                   @click="changeRating(1)"
                   :class="{ selected: currentRating === 1 }"
                 >
-                  <span>Moins bon films</span>
+                  <span>bad</span>
                 </button>
               </div>
             </div>
@@ -138,7 +137,7 @@
                   @click="changeRelease(2)"
                   :class="{ selected: currentRelease === 2 }"
                 >
-                  <span>récent</span>
+                  <span>new</span>
                 </button>
               </div>
               <div class="last-film">
@@ -146,7 +145,7 @@
                   @click="changeRelease(1)"
                   :class="{ selected: currentRelease === 1 }"
                 >
-                  <span>vieux</span>
+                  <span>old</span>
                 </button>
               </div>
             </div>
@@ -261,11 +260,8 @@ export default {
 
   methods: {
     changeFilmAffiche(film) {
-      this.filmAffiche.id = film.id;
-      this.filmAffiche.title = film.title;
-
-      this.filmAffiche.description = film.overview;
-      this.filmAffiche.backdrop_path = film.backdrop_path;
+      this.filmAffiche = film;
+      window.scrollTo({ top: 0, behavior: "smooth" });
     },
 
     async changePage(n) {
@@ -389,10 +385,6 @@ export default {
           } else {
             console.log("je suis un films récents");
           }
-          // partie fin films date
-
-          this.filmAffiche.description = response.data.items[0].overview;
-          // fin récup 20% films
         });
     },
 
@@ -696,17 +688,23 @@ export default {
       .container-film {
         position: relative;
         margin: 5px 4px;
-        img {
-          width: 250px;
-          height: 250px;
+        transition: 0.5s;
+        &:hover {
+          transform: scale(1.04);
+          z-index: 7888888;
         }
       }
       .film-title {
         text-align: center;
         position: absolute;
-        bottom: 0;
+        padding: 12px 0;
         color: white;
         font-size: 20px;
+        left: 50%;
+        bottom: 0;
+        background-color: #05051f8a;
+        width: 100%;
+        transform: translate(-50%, 0%);
       }
     }
   }

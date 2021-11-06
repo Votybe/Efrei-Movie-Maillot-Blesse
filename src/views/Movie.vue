@@ -41,17 +41,19 @@
               v-for="(production_companie, index) in film.production_companies"
               :key="index"
             >
-              <div class="first-row">
-                <p>{{ production_companie.name }}</p>
-              </div>
-              <div class="second-row">
-                <img
-                  :src="
-                    'https://www.themoviedb.org/t/p/original/' +
-                      production_companie.logo_path
-                  "
-                  :alt="production_companie.name"
-                />
+              <div class="section">
+                <div class="first-row">
+                  <p>{{ production_companie.name }}</p>
+                </div>
+                <div class="second-row">
+                  <img
+                    :src="
+                      'https://www.themoviedb.org/t/p/original/' +
+                        production_companie.logo_path
+                    "
+                    :alt="production_companie.name"
+                  />
+                </div>
               </div>
             </div>
           </div>
@@ -92,9 +94,9 @@ export default {
 .movie {
   background-color: #032b53;
 
-  height: 100vh;
-  width: 100vw;
-  display: flex;
+  height: 100%;
+  width: 100%;
+
   overflow-x: hidden;
   span,
   p,
@@ -105,7 +107,9 @@ export default {
 
   .movie-container {
     display: flex;
-    flex-direction: column;
+    flex-wrap: wrap;
+    height: 100%;
+
     .header {
       display: flex;
       width: 100%;
@@ -123,29 +127,42 @@ export default {
     .movie-body {
       display: flex;
       width: 100%;
+      flex-wrap: wrap;
       .movie-image {
-        height: 100%;
-        width: 30%;
-        background-color: pink;
+        display: flex;
+        justify-content: center;
+        width: 100%;
         img {
-          text-align: center;
+          display: flex;
+          margin: 0 auto;
         }
       }
       .movie-details {
         display: flex;
         flex-direction: column;
-        width: 70%;
+        flex-wrap: wrap;
+        margin: auto;
+        // margin-top:85px;
+
         .movie-first-part {
           display: flex;
+
           justify-content: center;
-          #test {
-            margin-right: 53px;
+
+          .first-row,
+          .second-row {
+            p {
+              margin: 15px 0;
+            }
           }
         }
         .movie-second-part {
           display: flex;
           flex-direction: row;
           justify-content: center;
+          h3 {
+            color: #b5dfff;
+          }
           p {
             margin: 0 5px;
           }
@@ -153,19 +170,33 @@ export default {
         .movie-third-part {
           display: flex;
           justify-content: center;
+          align-items: center;
+          margin: 25px 0;
+          flex-wrap: wrap;
           p {
-            width: 25%;
+            color: #b5dfff;
+            max-width: 500px;
+            text-align: center;
           }
         }
 
         .movie-fourth-part {
           display: flex;
           flex-direction: row;
-          justify-content: center;
-
-          img {
-            width: 50px;
-            height: 50px;
+          flex-wrap: wrap;
+          .section {
+            display: flex;
+            flex-direction: column;
+            .first-row {
+              margin: 5px 5px;
+            }
+            .second-row {
+              text-align: center;
+            }
+            img {
+              width: 50px;
+              height: 50px;
+            }
           }
         }
       }

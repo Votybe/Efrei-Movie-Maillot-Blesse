@@ -1,13 +1,10 @@
 <template>
   <div class="header">
-    <div class="title">E-film</div>
-    <div class="heart"></div>
-
     <div class="link">
-      <router-link to="/">Accueil</router-link>
-      <router-link to="/getallfilms">Tous nos films</router-link>
-      <router-link to="/">Page 4</router-link>
-      <router-link to="/">Page 5</router-link>
+      <router-link to="/">Home</router-link>
+      <router-link to="/getallfilms">Get all movies</router-link>
+      <router-link to="/ameliorationavenir">Add features</router-link>
+      <router-link to="/creatoroffilm">Creator of WebSite</router-link>
     </div>
   </div>
 </template>
@@ -35,10 +32,12 @@ export default {
 
   .link {
     display: flex;
-    justify-content: flex-end;
+    justify-content: flex-start;
+    margin-left: 25px;
+    flex-wrap: wrap;
     width: 100%;
     a {
-      text-align: end;
+      text-align: start;
       text-decoration: none;
       font-size: 20px;
       color: #b5dfff;

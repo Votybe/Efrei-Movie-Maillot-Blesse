@@ -1,7 +1,5 @@
 <template>
-  <div>
-    <!-- <img class="panier" alt="panier" src="../assets/logo.png" /> -->
-
+  <div class="shoppingCart">
     <svg
       @click="toggleCart()"
       aria-hidden="true"
@@ -18,33 +16,41 @@
         d="M528.12 301.319l47.273-208C578.806 78.301 567.391 64 551.99 64H159.208l-9.166-44.81C147.758 8.021 137.93 0 126.529 0H24C10.745 0 0 10.745 0 24v16c0 13.255 10.745 24 24 24h69.883l70.248 343.435C147.325 417.1 136 435.222 136 456c0 30.928 25.072 56 56 56s56-25.072 56-56c0-15.674-6.447-29.835-16.824-40h209.647C430.447 426.165 424 440.326 424 456c0 30.928 25.072 56 56 56s56-25.072 56-56c0-22.172-12.888-41.332-31.579-50.405l5.517-24.276c3.413-15.018-8.002-29.319-23.403-29.319H218.117l-6.545-32h293.145c11.206 0 20.92-7.754 23.403-18.681z"
       ></path>
     </svg>
-    <div v-if="display" class="shopping-cart">
-      <div class="title-border">
-        <div class="list-achat">
-          <h2>Liste d'achat</h2>
-          <ul>
-            <li
-              class="item_panier"
-              v-for="(element, index) in panier"
-              :key="index"
-            >
-              {{ element.title }}
-            </li>
-          </ul>
-        </div>
-        <div class="list-souhait">
-          <h2>Liste de souhait</h2>
-          <ul>
-            <li
-              class="item_panier"
-              v-for="(souhait, index) in souhaits"
-              :key="index"
-            >
-              <p>{{ souhait.title }}</p>
-              <button @click="addCart(souhait)">+</button>
-            </li>
-          </ul>
-        </div>
+
+    <div class="title-border" v-if="display">
+      <div class="list-achat">
+        <h2>shopping list</h2>
+        <ul>
+          <li
+            class="item_panier"
+            v-for="(element, index) in panier"
+            :key="index"
+          >
+            <p class="title-itemP">{{ element.title }}</p>
+            <p>{{ element.vote_average }} €</p>
+            <button @click="suppFilmPanier(element)">x</button>
+          </li>
+          <button
+            class="payerMoi"
+            @click="$emit('viderPanier')"
+            v-if="panier.length !== 0"
+          >
+            Payer
+          </button>
+        </ul>
+      </div>
+      <div class="list-souhait">
+        <h2>wish list</h2>
+        <ul>
+          <li
+            class="item_panier"
+            v-for="(souhait, index) in souhaits"
+            :key="index"
+          >
+            <p>{{ souhait.title }}</p>
+            <button @click="addCart(souhait)">+</button>
+          </li>
+        </ul>
       </div>
     </div>
   </div>
@@ -76,90 +82,91 @@ export default {
     addCart(film) {
       this.$emit("addCart", film);
     },
+    suppFilmPanier(film) {
+      this.$emit("suppFilmPanier", film);
+    },
+    viderPanier() {},
   },
 };
 </script>
 
 <style lang="scss" scoped>
+.shoppingCart {
+  padding-top: 25px;
+  background-color: #042444;
+  position: fixed;
+  z-index: 10;
+  right: 0;
+  top: 0;
+}
+
 .panier {
   position: absolute;
   right: 20px;
   height: 30px;
   width: 30px;
   display: flex;
-  align-self: center;
+}
+
+button {
+  background-color: #b5dfff;
+  border: none;
 }
 
 .title-border {
   display: flex;
   flex-direction: row;
 
+  justify-content: space-evenly;
+  align-items: stretch;
+  width: 500px;
+  height: 900px;
   h2 {
     display: flex;
     margin: 0 1rem;
-    color: white;
+    color: #b5dfff;
+    justify-content: center;
   }
 
   li {
     color: white;
-    margin: 2px;
+    margin: 14px 0;
+    color: #b5dfff;
+  }
+
+  li {
+    width: 100%;
+    text-align: center;
+    display: flex;
+    list-style-type: none;
+    justify-content: space-evenly;
+
+    .title-itemP {
+      width: 125px;
+    }
+    button {
+      text-align: center;
+      margin-left: 5px;
+      width: 25px;
+      height: 25px;
+    }
   }
   .list-souhait {
     display: flex;
     flex-direction: column;
-    border-left: solid 1px white;
-    ul {
-      display: flex;
-      flex-direction: column;
-      li {
-        justify-content: center;
-        width: 100%;
-        text-align: center;
-        display: flex;
-        list-style-type: none;
-
-        p {
-          color: white;
-        }
-        button {
-          text-align: center;
-          margin: 0 auto;
-          width: 20%;
-        }
-      }
-    }
+    width: 250px;
   }
 
   .list-achat {
     display: flex;
     flex-direction: column;
-    li {
+    width: 250px;
+    .payerMoi {
       width: 100%;
-      text-align: center;
-      display: flex;
-      list-style-type: none;
-
-      p {
-        color: white;
-      }
-      button {
-        text-align: center;
-        margin: 0 auto;
-        width: 20%;
-      }
+      background-color: #0c3e6f;
+      padding: 5px;
+      color: white;
     }
   }
-}
-
-.shopping-cart {
-  display: flex;
-  width: 500px;
-  height: 900px;
-  background: rgb(134, 8, 207);
-  background: linear-gradient(
-    254deg,
-    rgba(134, 8, 207, 1) 29%,
-    rgba(81, 11, 174, 1) 100%
-  );
 }
 </style>
