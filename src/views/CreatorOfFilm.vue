@@ -1,17 +1,16 @@
 <template>
   <div class="creator">
+    <h2>Two developpeur for the site :</h2>
     <div class="explication">
       <div class="aymeric">
         <img src="../assets/aymeric.png" alt="" />
         <p>Aymeric Maillot</p>
         <p>Developpeur Web</p>
-        <p>Etudiant à l'efrei Paris</p>
       </div>
       <div class="louis">
         <img src="../assets/louis.png" alt="" />
         <p>Louis Blesse</p>
         <p>Developpeur Web</p>
-        <p>Etudiant à l'efrei Paris</p>
       </div>
     </div>
   </div>
@@ -27,8 +26,9 @@ export default {};
   width: 100%;
   height: 100vh;
   color: #b5dfff;
-  justify-content: center;
   align-items: center;
+  flex-direction: column;
+  font-size: 25px;
   display: flex;
   .explication {
     display: flex;
@@ -37,6 +37,7 @@ export default {};
     .louis,
     .aymeric {
       text-align: center;
+      margin: 5px 5px;
       p {
         margin: 5px 0;
       }

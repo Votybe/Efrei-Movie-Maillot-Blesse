@@ -27,9 +27,11 @@ export default {};
   flex-direction: column;
   align-items: center;
   color: #b5dfff;
+
   h2 {
     font-size: 35px;
   }
+
   ul {
     li {
       text-align: center;
