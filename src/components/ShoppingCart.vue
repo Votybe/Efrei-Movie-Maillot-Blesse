@@ -30,12 +30,18 @@
             <p>{{ element.vote_average }} €</p>
             <button @click="suppFilmPanier(element)">x</button>
           </li>
+          <input
+            class="adresse"
+            v-if="panier.length !== 0"
+            type="text"
+            placeholder="Delivery adress"
+          />
           <button
             class="payerMoi"
             @click="$emit('viderPanier')"
             v-if="panier.length !== 0"
           >
-            Payer
+            Buy
           </button>
         </ul>
       </div>
@@ -161,6 +167,20 @@ button {
     display: flex;
     flex-direction: column;
     width: 250px;
+    .adresse {
+      background-color: #0c3e6f;
+      border: none;
+      padding: 8px;
+      width: 100%;
+      margin: 8px 0;
+      &::placeholder {
+        color: #b5dfff;
+      }
+      &:focus {
+        border: none;
+        color: #b5dfff;
+      }
+    }
     .payerMoi {
       width: 100%;
       background-color: #0c3e6f;
