@@ -1,5 +1,7 @@
 # e-film-maillot-blesse
 
+### video de présentation : https://www.youtube.com/watch?v=nr4YhhNtt6g
+
 ## Project setup
 ```
 npm install
@@ -23,4 +25,3 @@ npm run lint
 ### Customize configuration
 See [Configuration Reference](https://cli.vuejs.org/config/).
 
-### video : https://www.youtube.com/watch?v=nr4YhhNtt6g
